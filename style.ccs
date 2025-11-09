@@ -1,19 +1,23 @@
 body {
-  font-family: Arial, sans-serif;
   background: #222;
   color: white;
+  font-family: Arial, sans-serif;
   text-align: center;
 }
 
-.editor {
+h1 {
+  color: #ff4b6e;
+}
+
+.builder {
   margin-top: 20px;
 }
 
 canvas {
   background: #333;
-  margin-top: 10px;
   border-radius: 10px;
 }
+
 button {
   margin: 5px;
   padding: 10px;
@@ -23,6 +27,11 @@ button {
   color: white;
   cursor: pointer;
 }
+
 button:hover {
   background: #ff6f91;
+}
+
+.control-group {
+  margin-top: 10px;
 }
