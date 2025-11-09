@@ -3,21 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PFP Maker</title>
+  <title>Character Builder</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Gorilla Game VR PFP Maker 🎨</h1>
+  <h1>Character Builder 🧍‍♂️</h1>
 
-  <div class="editor">
-    <input type="file" id="upload" accept="image/*">
-    <canvas id="canvas"></canvas>
+  <div class="builder">
+    <canvas id="avatar" width="300" height="300"></canvas>
 
     <div class="controls">
-      <button id="circle">Circle Crop</button>
-      <button id="filter">Add Filter</button>
-      <button id="download">Download</button>
+      <div class="control-group">
+        <h3>Base</h3>
+        <button onclick="changePart('base', -1)">←</button>
+        <button onclick="changePart('base', 1)">→</button>
+      </div>
+
+      <div class="control-group">
+        <h3>Hair</h3>
+        <button onclick="changePart('hair', -1)">←</button>
+        <button onclick="changePart('hair', 1)">→</button>
+      </div>
+
+      <div class="control-group">
+        <h3>Eyes</h3>
+        <button onclick="changePart('eyes', -1)">←</button>
+        <button onclick="changePart('eyes', 1)">→</button>
+      </div>
+
+      <div class="control-group">
+        <h3>Clothes</h3>
+        <button onclick="changePart('clothes', -1)">←</button>
+        <button onclick="changePart('clothes', 1)">→</button>
+      </div>
     </div>
+
+    <button id="download">Download PNG</button>
   </div>
 
   <script src="script.js"></script>
