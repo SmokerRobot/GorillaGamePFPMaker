@@ -1,53 +1,35 @@
-const upload = document.getElementById("upload");
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("avatar");
 const ctx = canvas.getContext("2d");
-const circleBtn = document.getElementById("circle");
-const filterBtn = document.getElementById("filter");
 const downloadBtn = document.getElementById("download");
 
-let img = new Image();
-let filtered = false;
-
-upload.addEventListener("change", e => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    img.src = reader.result;
-  };
-  reader.readAsDataURL(file);
-});
-
-img.onload = () => {
-  canvas.width = 300;
-  canvas.height = 300;
-  ctx.drawImage(img, 0, 0, 300, 300);
+const parts = {
+  base: ["assets/base/base1.png", "assets/base/base2.png"],
+  hair: ["assets/hair/hair1.png", "assets/hair/hair2.png", "assets/hair/hair3.png"],
+  eyes: ["assets/eyes/eyes1.png", "assets/eyes/eyes2.png"],
+  clothes: ["assets/clothes/shirt1.png", "assets/clothes/shirt2.png"]
 };
 
-circleBtn.addEventListener("click", () => {
-  const temp = document.createElement("canvas");
-  temp.width = 300;
-  temp.height = 300;
-  const tctx = temp.getContext("2d");
+const indices = { base: 0, hair: 0, eyes: 0, clothes: 0 };
 
-  tctx.beginPath();
-  tctx.arc(150, 150, 150, 0, Math.PI * 2);
-  tctx.closePath();
-  tctx.clip();
-  tctx.drawImage(img, 0, 0, 300, 300);
+function drawCharacter() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let part in parts) {
+    const img = new Image();
+    img.src = parts[part][indices[part]];
+    img.onload = () => ctx.drawImage(img, 0, 0, 300, 300);
+  }
+}
 
-  ctx.clearRect(0, 0, 300, 300);
-  ctx.drawImage(temp, 0, 0);
-});
-
-filterBtn.addEventListener("click", () => {
-  filtered = !filtered;
-  ctx.filter = filtered ? "contrast(1.3) saturate(1.5)" : "none";
-  ctx.drawImage(img, 0, 0, 300, 300);
-});
+function changePart(part, direction) {
+  indices[part] = (indices[part] + direction + parts[part].length) % parts[part].length;
+  drawCharacter();
+}
 
 downloadBtn.addEventListener("click", () => {
   const link = document.createElement("a");
-  link.download = "pfp.png";
+  link.download = "character.png";
   link.href = canvas.toDataURL();
   link.click();
 });
+
+drawCharacter();
